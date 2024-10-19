@@ -72,6 +72,13 @@ extension DefaultsStorage {
         storedValue = URL(string: self.store.value(forKey: key) as? String ?? "") ?? defaultValue
     }
 
+    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Date {
+        self.key = key
+        self.store = store ?? UserDefaults.standard
+        defaultValue = wrappedValue
+        storedValue = self.store.value(forKey: key) as? Value ?? defaultValue
+    }
+
     init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Data {
         self.key = key
         self.store = store ?? UserDefaults.standard

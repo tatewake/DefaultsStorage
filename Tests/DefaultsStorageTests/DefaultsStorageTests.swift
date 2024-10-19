@@ -107,6 +107,20 @@ final class DefaultsStorageTests: XCTestCase {
         XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.absoluteString)
     }
 
+    func testDate() throws {
+        let key = "testDate"
+        typealias TestType = Date
+        let initialValue: TestType = .distantPast
+        let updatedValue: TestType = .distantFuture
+
+        @DefaultsStorage(key, store: store) var value = initialValue
+        XCTAssertNil(store.value(forKey: key) as? TestType)
+        value = initialValue
+        XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        value = updatedValue
+        XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+    }
+
     func testData() throws {
         let key = "testData"
         typealias TestType = Data

@@ -19,8 +19,8 @@ struct DefaultsStorage<Value> {
             } else if let newURLValue = newValue as? URL {
                 if newURLValue.isFileURL {
                     store.set(newURLValue.absoluteURL.path, forKey: key)
-                } else {
-                    store.set(newURLValue.absoluteString, forKey: key)
+                } else if let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: newURLValue, requiringSecureCoding: false) {
+                    store.set(archivedData, forKey: key)
                 }
             } else {
                 store.set(newValue, forKey: key)
@@ -73,7 +73,16 @@ extension DefaultsStorage {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
-        storedValue = URL(string: self.store.value(forKey: key) as? String ?? "") ?? defaultValue
+        storedValue =
+            if let stringData = self.store.value(forKey: key) as? String {
+                URL(fileURLWithPath: stringData)
+            } else if let archiveData = self.store.value(forKey: key) as? Data,
+                      let unarchivedURL = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSURL.self, from: archiveData) as? URL
+            {
+                unarchivedURL
+            } else {
+                defaultValue
+            }
     }
 
     init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Date {

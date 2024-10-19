@@ -122,25 +122,31 @@ final class DefaultsStorageTests: XCTestCase {
     func testURL() throws {
         let key = "testURL"
         typealias TestType = URL
-        typealias StorageType = String
+        typealias RemoteStorageType = Data
+        typealias LocalStorageType = String
 
         // swiftlint: disable force_unwrapping
         let initialValue: TestType = URL(string: "http://example.com/")!
         let updatedValue: TestType = URL(filePath: ".")!
         // swiftlint: enable force_unwrapping
 
+        let archivedInitialValue = try? NSKeyedArchiver.archivedData(withRootObject: initialValue, requiringSecureCoding: false)
+
         @DefaultsStorage(key, store: store) var value = initialValue {
             didSet {
                 setCount += 1
             }
         }
-        XCTAssertNil(store.value(forKey: key) as? StorageType)
+        XCTAssertNil(store.value(forKey: key) as? RemoteStorageType)
+        XCTAssertNil(store.value(forKey: key) as? LocalStorageType)
         XCTAssertEqual(setCount, 0)
         value = initialValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.absoluteString)
+        XCTAssertEqual(store.value(forKey: key) as? RemoteStorageType, archivedInitialValue)
+        XCTAssertNil(store.value(forKey: key) as? LocalStorageType)
         XCTAssertEqual(setCount, 1)
         value = updatedValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.absoluteURL.path)
+        XCTAssertNil(store.value(forKey: key) as? RemoteStorageType)
+        XCTAssertEqual(store.value(forKey: key) as? LocalStorageType, updatedValue.absoluteURL.path)
         XCTAssertEqual(setCount, 2)
     }
 

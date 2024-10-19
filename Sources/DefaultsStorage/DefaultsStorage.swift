@@ -17,7 +17,11 @@ struct DefaultsStorage<Value> {
             if let newRawValue = newValue as? (any RawRepresentable) {
                 store.set(newRawValue.rawValue, forKey: key)
             } else if let newURLValue = newValue as? URL {
-                store.set(newURLValue.absoluteString, forKey: key)
+                if newURLValue.isFileURL {
+                    store.set(newURLValue.absoluteURL.path, forKey: key)
+                } else {
+                    store.set(newURLValue.absoluteString, forKey: key)
+                }
             } else {
                 store.set(newValue, forKey: key)
             }

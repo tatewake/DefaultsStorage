@@ -140,7 +140,7 @@ final class DefaultsStorageTests: XCTestCase {
         XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.absoluteString)
         XCTAssertEqual(setCount, 1)
         value = updatedValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.absoluteString)
+        XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.absoluteURL.path)
         XCTAssertEqual(setCount, 2)
     }
 

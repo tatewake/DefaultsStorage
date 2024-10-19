@@ -5,8 +5,9 @@ import XCTest
 
 final class DefaultsStorageTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
-    private var store: UserDefaults!
     private static let suiteName = "com.example.DefaultsStorageTests"
+    private var store: UserDefaults!
+    private var setCount: Int = 0
     // swiftlint: enable implicitly_unwrapped_optional
 
     override final class func setUp() {
@@ -25,6 +26,7 @@ final class DefaultsStorageTests: XCTestCase {
         super.setUp()
 
         store = UserDefaults(suiteName: Self.suiteName)
+        setCount = 0
     }
 
     override func tearDown() {
@@ -39,12 +41,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = true
         let updatedValue: TestType = false
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testInt() throws {
@@ -53,12 +62,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = -12
         let updatedValue: TestType = 42
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testDouble() throws {
@@ -67,12 +83,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = -12.5
         let updatedValue: TestType = 42.5
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testString() throws {
@@ -81,12 +104,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = "Hello"
         let updatedValue: TestType = "World"
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testURL() throws {
@@ -99,12 +129,19 @@ final class DefaultsStorageTests: XCTestCase {
         let updatedValue: TestType = URL(filePath: ".")!
         // swiftlint: enable force_unwrapping
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? StorageType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.absoluteString)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.absoluteString)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testDate() throws {
@@ -113,12 +150,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = .distantPast
         let updatedValue: TestType = .distantFuture
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testData() throws {
@@ -127,12 +171,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = Data([0x01, 0x02, 0x03])
         let updatedValue: TestType = Data([0x04, 0x05, 0x06])
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? TestType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, initialValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testIntEnum() throws {
@@ -147,12 +198,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = .alpha
         let updatedValue: TestType = .beta
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? StorageType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.rawValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.rawValue)
+        XCTAssertEqual(setCount, 2)
     }
 
     func testStringEnum() throws {
@@ -167,12 +225,19 @@ final class DefaultsStorageTests: XCTestCase {
         let initialValue: TestType = .alpha
         let updatedValue: TestType = .beta
 
-        @DefaultsStorage(key, store: store) var value = initialValue
+        @DefaultsStorage(key, store: store) var value = initialValue {
+            didSet {
+                setCount += 1
+            }
+        }
         XCTAssertNil(store.value(forKey: key) as? StorageType)
+        XCTAssertEqual(setCount, 0)
         value = initialValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.rawValue)
+        XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.rawValue)
+        XCTAssertEqual(setCount, 2)
     }
 }
 

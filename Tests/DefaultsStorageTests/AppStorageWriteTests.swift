@@ -4,9 +4,9 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
-final class AppStorageCompatibilityTests: XCTestCase {
+final class AppStorageWriteTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
-    private static let suiteName = "com.example.AppStorageCompatibilityTests"
+    private static let suiteName = "com.example.AppStorageWriteTests"
     private var store: UserDefaults!
     private var setCount: Int = 0
     // swiftlint: enable implicitly_unwrapped_optional

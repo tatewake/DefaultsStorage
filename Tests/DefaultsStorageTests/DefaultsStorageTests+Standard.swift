@@ -3,9 +3,9 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
-final class DefaultsStorageTests: XCTestCase {
+final class DefaultsStorageStandardTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
-    private static let suiteName = "com.example.DefaultsStorageTests"
+    private static let suiteName = "com.example.DefaultsStorageStandardTests"
     private var store: UserDefaults!
     private var setCount: Int = 0
     // swiftlint: enable implicitly_unwrapped_optional
@@ -119,37 +119,6 @@ final class DefaultsStorageTests: XCTestCase {
         XCTAssertEqual(setCount, 2)
     }
 
-    func testURL() throws {
-        let key = "testURL"
-        typealias TestType = URL
-        typealias RemoteStorageType = Data
-        typealias LocalStorageType = String
-
-        // swiftlint: disable force_unwrapping
-        let initialValue: TestType = URL(string: "http://example.com/")!
-        let updatedValue: TestType = URL(filePath: ".")!
-        // swiftlint: enable force_unwrapping
-
-        let archivedInitialValue = try? NSKeyedArchiver.archivedData(withRootObject: initialValue, requiringSecureCoding: false)
-
-        @DefaultsStorage(key, store: store) var value = initialValue {
-            didSet {
-                setCount += 1
-            }
-        }
-        XCTAssertNil(store.value(forKey: key) as? RemoteStorageType)
-        XCTAssertNil(store.value(forKey: key) as? LocalStorageType)
-        XCTAssertEqual(setCount, 0)
-        value = initialValue
-        XCTAssertEqual(store.value(forKey: key) as? RemoteStorageType, archivedInitialValue)
-        XCTAssertNil(store.value(forKey: key) as? LocalStorageType)
-        XCTAssertEqual(setCount, 1)
-        value = updatedValue
-        XCTAssertNil(store.value(forKey: key) as? RemoteStorageType)
-        XCTAssertEqual(store.value(forKey: key) as? LocalStorageType, updatedValue.absoluteURL.path)
-        XCTAssertEqual(setCount, 2)
-    }
-
     func testDate() throws {
         let key = "testDate"
         typealias TestType = Date
@@ -189,60 +158,6 @@ final class DefaultsStorageTests: XCTestCase {
         XCTAssertEqual(setCount, 1)
         value = updatedValue
         XCTAssertEqual(store.value(forKey: key) as? TestType, updatedValue)
-        XCTAssertEqual(setCount, 2)
-    }
-
-    func testIntEnum() throws {
-        enum IntEnum: Int {
-            case alpha
-            case beta
-        }
-
-        let key = "testIntEnum"
-        typealias TestType = IntEnum
-        typealias StorageType = Int
-        let initialValue: TestType = .alpha
-        let updatedValue: TestType = .beta
-
-        @DefaultsStorage(key, store: store) var value = initialValue {
-            didSet {
-                setCount += 1
-            }
-        }
-        XCTAssertNil(store.value(forKey: key) as? StorageType)
-        XCTAssertEqual(setCount, 0)
-        value = initialValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.rawValue)
-        XCTAssertEqual(setCount, 1)
-        value = updatedValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.rawValue)
-        XCTAssertEqual(setCount, 2)
-    }
-
-    func testStringEnum() throws {
-        enum StringEnum: String {
-            case alpha
-            case beta
-        }
-
-        let key = "testStringEnum"
-        typealias TestType = StringEnum
-        typealias StorageType = String
-        let initialValue: TestType = .alpha
-        let updatedValue: TestType = .beta
-
-        @DefaultsStorage(key, store: store) var value = initialValue {
-            didSet {
-                setCount += 1
-            }
-        }
-        XCTAssertNil(store.value(forKey: key) as? StorageType)
-        XCTAssertEqual(setCount, 0)
-        value = initialValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, initialValue.rawValue)
-        XCTAssertEqual(setCount, 1)
-        value = updatedValue
-        XCTAssertEqual(store.value(forKey: key) as? StorageType, updatedValue.rawValue)
         XCTAssertEqual(setCount, 2)
     }
 }

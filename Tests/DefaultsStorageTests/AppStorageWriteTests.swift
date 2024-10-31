@@ -44,8 +44,8 @@ final class AppStorageWriteTests: XCTestCase {
         "DS-\(key)"
     }
 
-    func testBool() throws {
-        let key = "testBool"
+    func testWriteBool() throws {
+        let key = "testWriteBool"
         typealias TestType = Bool
         let initialValue: TestType = true
 
@@ -63,8 +63,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testInt() throws {
-        let key = "testInt"
+    func testWriteInt() throws {
+        let key = "testWriteInt"
         typealias TestType = Int
         let initialValue: TestType = -12
 
@@ -82,8 +82,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testDouble() throws {
-        let key = "testDouble"
+    func testWriteDouble() throws {
+        let key = "testWriteDouble"
         typealias TestType = Double
         let initialValue: TestType = -12.5
 
@@ -101,8 +101,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testString() throws {
-        let key = "testString"
+    func testWriteString() throws {
+        let key = "testWriteString"
         typealias TestType = String
         let initialValue: TestType = "Hello"
 
@@ -120,8 +120,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testRemoteURL() throws {
-        let key = "testRemoteURL"
+    func testWriteRemoteURL() throws {
+        let key = "testWriteRemoteURL"
         typealias TestType = URL
         typealias StorageType = Data
 
@@ -143,8 +143,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testLocalURL() throws {
-        let key = "testLocalURL"
+    func testWriteLocalURL() throws {
+        let key = "testWriteLocalURL"
         typealias TestType = URL
         typealias StorageType = String
 
@@ -167,8 +167,8 @@ final class AppStorageWriteTests: XCTestCase {
     }
 
     @available(macOS 15.0, *)
-    func testDate() throws {
-        let key = "testDate"
+    func testWriteDate() throws {
+        let key = "testWriteDate"
         typealias TestType = Date
         let initialValue: TestType = .distantPast
 
@@ -186,8 +186,8 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testData() throws {
-        let key = "testData"
+    func testWriteData() throws {
+        let key = "testWriteData"
         typealias TestType = Data
         let initialValue: TestType = Data([0x01, 0x02, 0x03])
 
@@ -205,13 +205,13 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testIntEnum() throws {
+    func testWriteIntEnum() throws {
         enum IntEnum: Int {
             case alpha
             case beta
         }
 
-        let key = "testIntEnum"
+        let key = "testWriteIntEnum"
         typealias TestType = IntEnum
         typealias StorageType = Int
         let initialValue: TestType = .alpha
@@ -230,13 +230,13 @@ final class AppStorageWriteTests: XCTestCase {
         XCTAssertEqual(valueStoredViaAppStorage, valueStoredViaDefaultsStorage)
     }
 
-    func testStringEnum() throws {
+    func testWriteStringEnum() throws {
         enum StringEnum: String {
             case alpha
             case beta
         }
 
-        let key = "testStringEnum"
+        let key = "testWriteStringEnum"
         typealias TestType = StringEnum
         typealias StorageType = String
         let initialValue: TestType = .alpha

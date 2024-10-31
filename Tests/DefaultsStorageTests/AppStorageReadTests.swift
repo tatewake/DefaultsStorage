@@ -34,8 +34,8 @@ final class AppStorageReadTests: XCTestCase {
         super.tearDown()
     }
 
-    func testBool() throws {
-        let key = "testBool"
+    func testReadBool() throws {
+        let key = "testReadBool"
         typealias TestType = Bool
         let initialValue: TestType = true
         let dummyValue: TestType = false
@@ -47,8 +47,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testInt() throws {
-        let key = "testInt"
+    func testReadInt() throws {
+        let key = "testReadInt"
         typealias TestType = Int
         let initialValue: TestType = -12
         let dummyValue: TestType = 42
@@ -60,8 +60,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testDouble() throws {
-        let key = "testDouble"
+    func testReadDouble() throws {
+        let key = "testReadDouble"
         typealias TestType = Double
         let initialValue: TestType = -12.5
         let dummyValue: TestType = 42.5
@@ -73,8 +73,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testString() throws {
-        let key = "testString"
+    func testReadString() throws {
+        let key = "testReadString"
         typealias TestType = String
         let initialValue: TestType = "Hello"
         let dummyValue: TestType = "World"
@@ -86,8 +86,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testRemoteURL() throws {
-        let key = "testRemoteURL"
+    func testReadRemoteURL() throws {
+        let key = "testReadRemoteURL"
         typealias TestType = URL
 
         // swiftlint: disable force_unwrapping
@@ -102,8 +102,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testLocalURL() throws {
-        let key = "testLocalURL"
+    func testReadLocalURL() throws {
+        let key = "testReadLocalURL"
         typealias TestType = URL
         typealias StorageType = String
 
@@ -127,8 +127,8 @@ final class AppStorageReadTests: XCTestCase {
     }
 
     @available(macOS 15.0, *)
-    func testDate() throws {
-        let key = "testDate"
+    func testReadDate() throws {
+        let key = "testReadDate"
         typealias TestType = Date
         let initialValue: TestType = .distantPast
         let dummyValue: TestType = .distantFuture
@@ -140,8 +140,8 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testData() throws {
-        let key = "testData"
+    func testReadData() throws {
+        let key = "testReadData"
         typealias TestType = Data
         let initialValue: TestType = Data([0x01, 0x02, 0x03])
         let dummyValue: TestType = Data([0x04, 0x05, 0x06])
@@ -153,13 +153,13 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testIntEnum() throws {
+    func testReadIntEnum() throws {
         enum IntEnum: Int {
             case alpha
             case beta
         }
 
-        let key = "testIntEnum"
+        let key = "testReadIntEnum"
         typealias TestType = IntEnum
         typealias StorageType = Int
         let initialValue: TestType = .alpha
@@ -172,13 +172,13 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue, defaultsStorageValue)
     }
 
-    func testStringEnum() throws {
+    func testReadStringEnum() throws {
         enum StringEnum: String {
             case alpha
             case beta
         }
 
-        let key = "testStringEnum"
+        let key = "testReadStringEnum"
         typealias TestType = StringEnum
         typealias StorageType = String
         let initialValue: TestType = .alpha

@@ -12,7 +12,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Bool {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Bool {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -28,7 +28,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Int {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Int {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -44,7 +44,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Double {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Double {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -60,7 +60,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == String {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == String {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -76,7 +76,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Date {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Date {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -97,7 +97,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Data {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == Data {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue

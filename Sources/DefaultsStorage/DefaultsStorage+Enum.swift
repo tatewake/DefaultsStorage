@@ -29,7 +29,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value: RawRepresentable, Value.RawValue == Int {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value: RawRepresentable, Value.RawValue == Int {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -62,7 +62,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value: RawRepresentable, Value.RawValue == String {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value: RawRepresentable, Value.RawValue == String {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -99,7 +99,7 @@ extension DefaultsStorage where Value: ExpressibleByNilLiteral {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init<R>(_ key: String, store: UserDefaults? = nil) where Value == R?, R: RawRepresentable, R.RawValue == Int {
+    public init<R>(_ key: String, store: UserDefaults? = nil) where Value == R?, R: RawRepresentable, R.RawValue == Int {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = nil
@@ -137,7 +137,7 @@ extension DefaultsStorage where Value: ExpressibleByNilLiteral {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init<R>(_ key: String, store: UserDefaults? = nil) where Value == R?, R: RawRepresentable, R.RawValue == String {
+    public init<R>(_ key: String, store: UserDefaults? = nil) where Value == R?, R: RawRepresentable, R.RawValue == String {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = nil

@@ -12,7 +12,7 @@ extension DefaultsStorage {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == URL {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == URL {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = wrappedValue
@@ -42,7 +42,7 @@ extension DefaultsStorage where Value: ExpressibleByNilLiteral {
     ///     store.
     ///   - store: The user defaults store to read and write to. A value
     ///     of `nil` will use the user default store from the environment.
-    init(_ key: String, store: UserDefaults? = nil) where Value == URL? {
+    public init(_ key: String, store: UserDefaults? = nil) where Value == URL? {
         self.key = key
         self.store = store ?? UserDefaults.standard
         defaultValue = nil

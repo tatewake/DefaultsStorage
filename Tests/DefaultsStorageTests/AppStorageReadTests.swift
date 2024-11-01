@@ -126,7 +126,7 @@ final class AppStorageReadTests: XCTestCase {
         XCTAssertEqual(appStorageValue2, defaultsStorageValue)
     }
 
-    @available(macOS 15.0, *)
+    @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
     func testReadDate() throws {
         let key = "testReadDate"
         typealias TestType = Date

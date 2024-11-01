@@ -37,8 +37,8 @@ final class DefaultsStorageEnumTests: XCTestCase {
 
     func testIntEnum() throws {
         enum IntEnum: Int {
-            case alpha
-            case beta
+            case alpha = -12
+            case beta = 42
         }
 
         let key = "testIntEnum"
@@ -64,8 +64,8 @@ final class DefaultsStorageEnumTests: XCTestCase {
 
     func testStringEnum() throws {
         enum StringEnum: String {
-            case alpha
-            case beta
+            case alpha = "Hello"
+            case beta = "World"
         }
 
         let key = "testStringEnum"
@@ -91,8 +91,8 @@ final class DefaultsStorageEnumTests: XCTestCase {
 
     func testOptionalIntEnum() throws {
         enum IntEnum: Int {
-            case alpha
-            case beta
+            case alpha = -12
+            case beta = 42
         }
 
         let key = "testOptionalIntEnum"
@@ -120,8 +120,8 @@ final class DefaultsStorageEnumTests: XCTestCase {
 
     func testOptionalStringEnum() throws {
         enum StringEnum: String {
-            case alpha
-            case beta
+            case alpha = "Hello"
+            case beta = "World"
         }
 
         let key = "testOptionalStringEnum"

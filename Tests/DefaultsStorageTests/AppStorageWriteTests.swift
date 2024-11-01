@@ -207,8 +207,8 @@ final class AppStorageWriteTests: XCTestCase {
 
     func testWriteIntEnum() throws {
         enum IntEnum: Int {
-            case alpha
-            case beta
+            case alpha = -12
+            case beta = 42
         }
 
         let key = "testWriteIntEnum"
@@ -232,8 +232,8 @@ final class AppStorageWriteTests: XCTestCase {
 
     func testWriteStringEnum() throws {
         enum StringEnum: String {
-            case alpha
-            case beta
+            case alpha = "Hello"
+            case beta = "World"
         }
 
         let key = "testWriteStringEnum"

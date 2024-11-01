@@ -1,0 +1,7 @@
+--swiftversion 5.9
+--header strip
+--disable preferForLoop
+--enable acronyms,blankLinesBetweenImports,isEmpty,markTypes,wrapConditionalBodies,wrapEnumCases
+--typemark "MARK: - %t -"
+--groupedextension "MARK: - %c -"
+--extensionmark "MARK: - %t + %c -"

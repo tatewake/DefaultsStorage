@@ -3,6 +3,9 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
+/// DefaultsStorageOptionalTests validates reading and writing Optional
+/// versions of "Standard" values supported by `UserDefaults`
+/// via `@DefaultsStorage`
 final class DefaultsStorageOptionalTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
     private static let suiteName = "com.example.DefaultsStorageOptionalTests"

@@ -4,6 +4,8 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
+/// AppStorageReadTests tests if `@DefaultsStorage` can directly read values
+/// written by `@AppStorage`
 final class AppStorageReadTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
     private static let suiteName = "com.example.AppStorageReadTests"

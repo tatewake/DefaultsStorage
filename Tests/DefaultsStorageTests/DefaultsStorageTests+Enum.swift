@@ -3,6 +3,8 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
+/// DefaultsStorageEnumTests validates reading and writing `Int` or `String`
+/// backed `enum` types via `@DefaultsStorage`
 final class DefaultsStorageEnumTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
     private static let suiteName = "com.example.DefaultsStorageEnumTests"

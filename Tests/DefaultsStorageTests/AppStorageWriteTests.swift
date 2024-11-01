@@ -4,6 +4,8 @@ import XCTest
 
 // swiftlint: disable attributes explicit_enum_raw_value static_over_final_class
 
+/// AppStorageWriteTests tests if values written by `@DefaultStorage`and
+/// `@AppStorage` are equal
 final class AppStorageWriteTests: XCTestCase {
     // swiftlint: disable implicitly_unwrapped_optional
     private static let suiteName = "com.example.AppStorageWriteTests"

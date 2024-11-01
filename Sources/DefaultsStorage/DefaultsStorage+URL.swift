@@ -3,6 +3,15 @@ import Foundation
 // MARK: - URL Initializers -
 
 extension DefaultsStorage {
+    /// Creates a property that can read and write to a url user default.
+    ///
+    /// - Parameters:
+    ///   - wrappedValue: The default value if a url value is not specified for
+    ///     the given key.
+    ///   - key: The key to read and write the value to in the user defaults
+    ///     store.
+    ///   - store: The user defaults store to read and write to. A value
+    ///     of `nil` will use the user default store from the environment.
     init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) where Value == URL {
         self.key = key
         self.store = store ?? UserDefaults.standard
@@ -22,7 +31,17 @@ extension DefaultsStorage {
 
 // MARK: - URL Optional Initializers -
 
-extension DefaultsStorage {
+extension DefaultsStorage where Value: ExpressibleByNilLiteral {
+    /// Creates a property that can read and write an Optional URL user
+    /// default.
+    ///
+    /// Defaults to nil if there is no restored value.
+    ///
+    /// - Parameters:
+    ///   - key: The key to read and write the value to in the user defaults
+    ///     store.
+    ///   - store: The user defaults store to read and write to. A value
+    ///     of `nil` will use the user default store from the environment.
     init(_ key: String, store: UserDefaults? = nil) where Value == URL? {
         self.key = key
         self.store = store ?? UserDefaults.standard

@@ -2,14 +2,17 @@ import Foundation
 
 // MARK: - DefaultsStorage -
 
+/// A property wrapper type that reflects a value from `UserDefaults` and
+/// allows reactive updates for non-SwiftUI projects via `didSet` when the
+/// value changes.
 @propertyWrapper
-struct DefaultsStorage<Value> {
+public struct DefaultsStorage<Value> {
     let key: String
     let defaultValue: Value
     let store: UserDefaults
     var storedValue: Value
 
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         get {
             storedValue
         }
@@ -43,7 +46,7 @@ struct DefaultsStorage<Value> {
 // MARK: - Equatable -
 
 extension DefaultsStorage: Equatable where Value: Equatable {
-    static func == (lhs: DefaultsStorage<Value>, rhs: DefaultsStorage<Value>) -> Bool {
+    public static func == (lhs: DefaultsStorage<Value>, rhs: DefaultsStorage<Value>) -> Bool {
         lhs.storedValue == rhs.storedValue
     }
 }

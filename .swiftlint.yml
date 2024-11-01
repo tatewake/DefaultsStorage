@@ -1,0 +1,84 @@
+opt_in_rules:
+- all
+
+disabled_rules:
+- anonymous_argument_in_multiline_closure
+- anyobject_protocol
+- contrasted_opening_brace
+- cyclomatic_complexity
+- enum_case_associated_values_count
+- explicit_acl
+- explicit_top_level_acl
+- explicit_type_interface
+- file_length
+- file_types_order
+- function_body_length
+- indentation_width
+- inert_defer
+- large_tuple
+- line_length
+- nesting
+- no_empty_block
+- no_grouping_extension
+- number_separator
+- one_declaration_per_file
+- opening_brace
+- optional_enum_case_matching
+- prefer_nimble
+- prohibited_interface_builder
+- required_deinit
+- trailing_closure
+- trailing_comma
+- type_body_length
+- type_contents_order
+- unused_capture_list
+
+# Some custom_rules from here: https://ootips.org/yonat/useful-custom-rules-for-swiftlint/
+
+custom_rules:
+  auto_generated_leftovers:
+    regex: 'func [^\n]*\{\n(\s*super\.[^\n]*\n(\s*\/\/[^\n]*\n)*|(\s*\/\/[^\n]*\n)+)\s*\}'
+    message: "Delete auto-generated functions that you don't use"
+
+  numbers_smell:
+    regex: '(return |case |\w\(|: |\?\? |\, |== |<=? |>=? |\+= |\-= |\/= |\*= |%= |\w\.\w+ = )\(*-?\d{2,}'
+    message: "Numbers smell; define a constant instead."
+    excluded: '.*Tests/'
+
+  non_localized_string:
+    regex: '(?<!NSLocalizedString\(|fatalError\(|print\(|assertionFailure\(|preconditionFailure\(|assert\(false, |format: |separator: |deprecated, message: |\w|\")(?:"[^" \n]+ [^"\n]*"|"[[:upper:]][[:lower:]]+"|""".*?""")'
+    message: "Wrap string in NSLocalizedString()"
+    match_kinds: string
+    excluded: '.*Tests/'
+
+  already_true:
+    regex: "== true"
+    message: "Don't compare to true, just use the bool value."
+
+  already_bool:
+    regex: "== false"
+    message: "Don't compare to false, just use !value."
+
+  commented_code:
+    regex: '(?<!:|\/)\/\/\h*[a-z.](?!(wiftlint|wiftformat|eriphery))'
+    message: "Comment starting with lowercase letter - did you forget to delete old code?"
+
+  multiline_commented_code:
+    regex: '^\s*[a-z]'
+    match_kinds: comment
+    message: "Comment starting with lowercase letter - did you forget to delete old code?"
+
+  discourage_print:
+    included: ".*\\.swift"
+    name: "print()"
+    regex: "((\\bprint)|(Swift\\.print))\\s*\\("
+    message: "Prefer os_log() or debugPrint(#file, #function, ...)  over print()"
+    severity: warning
+
+  no_first_responder_calls:
+    message: "Do not call 'becomeFirstResponder' or 'resignFirstResponder' directly. Call 'makeFirstResponder' instead"
+    regex: '\b(?!super\.)([a-zA-Z0-9.?]+\.)(become|resign)FirstResponder\b'
+    severity: error
+
+excluded:
+- Package.swift

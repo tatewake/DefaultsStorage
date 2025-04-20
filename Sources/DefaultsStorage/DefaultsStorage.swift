@@ -12,6 +12,28 @@ public struct DefaultsStorage<Value> {
     let store: UserDefaults
     var storedValue: Value
 
+    private static func isValidType(_ value: Any) -> Bool {
+        let mirror = Mirror(reflecting: value)
+        if mirror.displayStyle == .optional {
+            if let unwrapped = mirror.children.first?.value {
+                return isValidType(unwrapped)
+            } else {
+                return true
+            }
+        } else {
+            switch value {
+            case is Bool, is Int, is Double, is String, is Date, is Data:
+                return true
+            case let array as [Any]:
+                return array.allSatisfy(isValidType)
+            case let dict as [String: Any]:
+                return dict.values.allSatisfy(isValidType)
+            default:
+                return false
+            }
+        }
+    }
+
     public var wrappedValue: Value {
         get {
             storedValue
@@ -40,6 +62,38 @@ public struct DefaultsStorage<Value> {
             }
             storedValue = newValue
         }
+    }
+}
+
+// MARK: - Standard Initializers -
+
+extension DefaultsStorage {
+    public init(wrappedValue: Value, _ key: String, store: UserDefaults? = nil) {
+        self.key = key
+        self.store = store ?? UserDefaults.standard
+        defaultValue = wrappedValue
+
+        guard DefaultsStorage.isValidType(defaultValue) else {
+            fatalError("UserDefaults cannot be used with type \(type(of: defaultValue))")
+        }
+
+        storedValue = self.store.value(forKey: key) as? Value ?? defaultValue
+    }
+}
+
+// MARK: - Optional Initializers -
+
+extension DefaultsStorage where Value: ExpressibleByNilLiteral {
+    public init(_ key: String, store: UserDefaults? = nil) {
+        self.key = key
+        self.store = store ?? UserDefaults.standard
+        defaultValue = nil
+
+        guard DefaultsStorage.isValidType(defaultValue) else {
+            fatalError("UserDefaults cannot be used with type \(type(of: defaultValue))")
+        }
+
+        storedValue = self.store.value(forKey: key) as? Value ?? defaultValue
     }
 }
 

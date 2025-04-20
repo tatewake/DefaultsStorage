@@ -17,7 +17,10 @@ This work-alike for `@AppStorage` reads from and writes to `UserDefaults` the sa
 ## Features
 
 * Simple property wrapper for storing and retrieving `UserDefaults` values.
-* Supports `Bool`, `Int`, `Double`, `String`, `Date`, `Data`, `URL`, and enums with `String` or `Int` raw values.
+* Supports `Bool`, `Int`, `Double`, `String`, `Date`, and `Data`.
+  * Arrays of those types, for instance `[Int]`
+  * Dictionaries of those types where the "key" is of type `String`, for instance `[String: Int]`
+* Also supports `URL` and enums with `String` or `Int` raw values.
 * Provides `didSet`-based reactivity.
 * Compatible with values stored by `@AppStorage`.
 * Fully tested for reliability.
@@ -30,7 +33,7 @@ Add `DefaultsStorage` to your project with Swift Package Manager in Xcode:
 
 1. Go to "File -> Add Package Dependency…"
 2. Enter the package URL: `https://github.com/tatewake/DefaultsStorage`
-3. Use "Dependency Rule -> Exact Version" and set to use release version "1.0.0".
+3. Use "Dependency Rule -> Exact Version" and set to use release version "1.1.0".
 
 ## Usage
 
